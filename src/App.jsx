@@ -8,7 +8,7 @@ const App = () => {
   const [constellationList, setConstellationList] = useState(initialDB)
   return (
     <div className='container'>
-      <Form />
+      <Form constellationList={constellationList} />
       <ListTable constellationList={constellationList} />
     </div>
   )

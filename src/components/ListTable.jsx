@@ -14,7 +14,9 @@ const ListTable = ({ constellationList }) => {
           </tr>
         </thead>
         <tbody>
-          {constellationList.map(item => <TableRow key={item.id} />)}
+          {constellationList.map((item) => (
+            <TableRow key={item.id} data={item} />
+          ))}
         </tbody>
       </table>
     </>

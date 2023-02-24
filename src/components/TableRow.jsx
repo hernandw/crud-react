@@ -1,10 +1,11 @@
 import React from "react";
 
-const TableRow = () => {
+const TableRow = ({data}) => {
+    const {name, constellation, id} = data
   return (
     <tr>
-      <td>Williams</td>
-      <td>Geminis</td>
+      <td>{name}</td>
+      <td>{constellation}</td>
       <td>
         <button>Editar</button>
         <button>Eliminar</button>
