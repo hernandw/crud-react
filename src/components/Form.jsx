@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import Error from "./Error";
 import { getId } from "../assets/getId";
-const Form = ({ constellationList, setConstellationList, edit }) => {
+const Form = ({ constellationList, setConstellationList, edit, setEdit }) => {
+  
+
   const [name, setName] = useState("");
   const [constellation, setConstellation] = useState("");
   const [error, setError] = useState(false);
@@ -29,11 +31,13 @@ const Form = ({ constellationList, setConstellationList, edit }) => {
     };
     //actualizamos los datos al presionar Editar
     if (edit.id) {
+      setError(false)
       getData.id = edit.id;
       const datoUpdate = constellationList.map((datoState) =>
         datoState.id === getData.id ? getData : datoState
       );
       setConstellationList(datoUpdate);
+      setEdit('')
     } else {
       //agregamos a la lista
       getData.id = getId();
@@ -51,6 +55,7 @@ const Form = ({ constellationList, setConstellationList, edit }) => {
       <form onSubmit={handleSubmit}>
         <div className="container__form">
           <label htmlFor="name">Nombre</label>
+          
           <input
             type="text"
             placeholder="Agrega tu nombre"
@@ -68,7 +73,7 @@ const Form = ({ constellationList, setConstellationList, edit }) => {
           />
         </div>
         <div className="btn__container">
-          <button className="btn">Agregar</button>
+          <button className="btn">{Object.entries(edit).length === 0 ? 'Agregar' : 'Editar'}</button>
           <button className="btn">Limpiar</button>
         </div>
       </form>

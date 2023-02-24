@@ -9,9 +9,12 @@ const App = () => {
   const [edit, setEdit] = useState({});
 
   const deleteUser = (id) => {
-    console.log("Elimnar Objecto", id);
+    
     const Update = constellationList.filter(item => item.id != id)
-    setConstellationList(Update)
+    
+      setConstellationList(Update)
+      setEdit('')
+        
   };
   return (
     <div className="container">
@@ -19,6 +22,8 @@ const App = () => {
         constellationList={constellationList}
         setConstellationList={setConstellationList}
         edit={edit}
+        setEdit={setEdit}
+        
       />
       <ListTable
         constellationList={constellationList}
