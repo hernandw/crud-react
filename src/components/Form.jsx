@@ -1,22 +1,53 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Error from "./Error";
-
-const Form = ({ constellationList }) => {
+import { getId } from "../assets/getId";
+const Form = ({ constellationList, setConstellationList, edit }) => {
   const [name, setName] = useState("");
   const [constellation, setConstellation] = useState("");
-  const [error, setError] = useState(false)
-
-  const handleSubmit = (e)=>{
-    e.preventDefault()
-    //Validamos el Formulario
-    if([name, constellation].includes('')){
-      setError(true)
+  const [error, setError] = useState(false);
+  useEffect(() => {
+    if (Object.keys(edit).length > 0) {
+      setName(edit.name);
+      setConstellation(edit.constellation);
     }
-  }
+  }, [edit]);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    //Validamos el Formulario
+    if ([name, constellation].includes("")) {
+      setError(true);
+      return;
+    }
+
+    setError(false);
+
+    //Creamos un objetos con los datos del formulario
+    const getData = {
+      name,
+      constellation,
+    };
+    //actualizamos los datos al presionar Editar
+    if (edit.id) {
+      getData.id = edit.id;
+      const datoUpdate = constellationList.map((datoState) =>
+        datoState.id === getData.id ? getData : datoState
+      );
+      setConstellationList(datoUpdate);
+    } else {
+      //agregamos a la lista
+      getData.id = getId();
+      setConstellationList([...constellationList, getData]);
+    }
+
+    //Limpiamos el formulario
+    setName("");
+    setConstellation("");
+  };
   return (
     <>
       <h1>CRUD con React</h1>
-      {error && <Error message='Todos los campos son obligatorios' /> }
+      {error && <Error message="Todos los campos son obligatorios" />}
       <form onSubmit={handleSubmit}>
         <div className="container__form">
           <label htmlFor="name">Nombre</label>

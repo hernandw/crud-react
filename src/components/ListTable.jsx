@@ -1,7 +1,7 @@
 import React from "react";
 import TableRow from "./TableRow";
 
-const ListTable = ({ constellationList }) => {
+const ListTable = ({ constellationList, setEdit, deleteUser }) => {
   return (
     <>
       <h2>Listado de Constelaciones</h2>
@@ -15,7 +15,7 @@ const ListTable = ({ constellationList }) => {
         </thead>
         <tbody>
           {constellationList.map((item) => (
-            <TableRow key={item.id} data={item} />
+            <TableRow key={item.id} data={item} setEdit={setEdit} deleteUser={deleteUser} />
           ))}
         </tbody>
       </table>
